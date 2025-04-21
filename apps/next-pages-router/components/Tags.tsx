@@ -6,11 +6,11 @@ const tagFontSize = (count: number) => {
   // Make a better algorithm. Above a certain threshold, the amount of font size to increase should be smaller.
   // Then on another threshold, the font size is maxed out.
 
-  const minFontSize = 7;
+  const minFontSize = 5;
   const threshold1 = 10;
   const threshold2 = 20;
   const increment1 = 0.8;
-  const increment2 = 0.4;
+  const increment2 = 0.3;
 
   // Calculate the max font size
   const maxFontSize =
@@ -67,8 +67,9 @@ export function Tags() {
             style={{
               fontSize: tagFontSize(tag.count),
             }}
+            key={tag.id}
           >
-            <span className="block text-grey group-hover:text-primary">
+            <span className="block text-grey group-hover:text-primary tracking-tighter">
               {tag.name}
             </span>
           </Link>

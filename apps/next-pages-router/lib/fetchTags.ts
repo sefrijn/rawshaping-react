@@ -11,7 +11,7 @@ export async function fetchTags(
 ) {
   // Order by count descending
   try {
-    const url = `${baseUrl}/tags?per_page=20&page=1&order=desc&orderby=count&fields=id,name,slug,count`;
+    const url = `${baseUrl}/tags?per_page=40&page=1&order=desc&orderby=count&fields=id,name,slug,count`;
     const response = await fetch(url);
     const data = await response.json();
     return data;

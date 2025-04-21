@@ -4,6 +4,7 @@ export interface QueryParams {
   page?: number;
   order?: 'asc' | 'desc';
   orderby?: 'date' | 'title' | 'slug' | 'id';
+  tags?: string; // slug
 }
 export type Fields =
   | 'id'
