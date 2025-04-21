@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/jquery.isotope.min.js"></script>
+	<script src="js/jquery.infinitescroll.min.js"></script>
+	<script src="js/jquery.mousewheel.min.js"></script>
+	<script src="js/jquery.jscrollpane.min.js"></script>
+
+	<style>
+
+.box{
+    position:fixed;  
+}
+#box1{
+    width:400px;
+    height:5080px;	
+	left:20px;
+	top:20px;
+	background:#f00;
+}
+#box2{
+	left:20px;
+	top:120px;
+	height:200px;
+	width:3000px;
+	background:#ff0;
+}
+.container{
+}
+
+	</style>
+	<script>
+$(document).ready(function(){
+	var h = $('#box1').height();
+	var w = $('#box2').width();
+	$('.container').width(w);
+	$('.container').height(h);
+})
+$(window).scroll(function(){
+//box one
+    var $win = $(window);
+    $('#box1').css('top', 20 -$win.scrollTop());
+    $('#box2').css('left', 20 -$win.scrollLeft());
+    h = $('#box1').height();
+    w = $('#box2').width();
+    $('.container').width(w);
+    $('.container').height(h);
+});
+	</script>
+</head>
+
+<body>
+	<div class="container">
+	    <div id="box1" class="box">
+	        My position-x is fixed but position-y is absolute.
+	    </div>
+	    <div id="box2" class="box">
+	        My position-x is absolute but position-y is fixed.
+	    </div>
+	</div>
+</body>
+</html>

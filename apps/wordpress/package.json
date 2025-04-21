@@ -1,0 +1,22 @@
+{
+  "name": "rawshaping-docker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "db:replace": "./scripts/replace_database.sh",
+    "db:import": "./scripts/import_database.sh",
+    "db:export": "./scripts/sync_database.sh",
+    "db:update": "cd ../../docker/local && docker compose start raw-wp-cli",
+    "uploads:sync": "./scripts/sync_uploads.sh",
+    "sync": "./scripts/sync_all.sh",
+    "docker:up": "cd ../../docker/local && docker compose up -d",
+    "docker:down": "cd ../../docker/local && docker compose down"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.2.5"
+  }
+}

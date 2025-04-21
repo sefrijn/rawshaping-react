@@ -1,0 +1,14 @@
+{
+  "name": "rawshaping",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter ./apps/wordpress docker:up && pnpm --filter ./apps/next dev"
+  }
+} 
