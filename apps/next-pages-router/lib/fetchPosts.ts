@@ -3,7 +3,7 @@ import { simplifyPostData } from './simplifyPostData';
 import type { Fields } from './types';
 import type { PostType, QueryParams } from './types';
 
-const createQueryParamString = (queryParams: QueryParams) => {
+export const createQueryParamString = (queryParams: QueryParams) => {
   return Object.entries(queryParams)
     .map(([key, value]) => `${key}=${value}`)
     .join('&');

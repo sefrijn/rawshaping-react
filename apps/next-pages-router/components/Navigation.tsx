@@ -33,7 +33,7 @@ export function Navigation() {
           >
             <ul className="py-5 pr-5">
               <li>
-                <Link href="/">Home</Link>
+                <Link href="/posts">Home</Link>
               </li>
               <li>
                 <Link href="/about">About</Link>
