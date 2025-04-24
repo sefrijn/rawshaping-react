@@ -36,13 +36,13 @@ export function Navigation() {
                 <Link href="/posts">Home</Link>
               </li>
               <li>
-                <Link href="/about">About</Link>
+                <Link href="/posts/about">About</Link>
               </li>
               <li>
-                <Link href="/downloads">Downloads</Link>
+                <Link href="/posts/downloads">Downloads</Link>
               </li>
               <li>
-                <Link href="/contact">Contact</Link>
+                <Link href="/posts/contact">Contact</Link>
               </li>
             </ul>
           </motion.nav>

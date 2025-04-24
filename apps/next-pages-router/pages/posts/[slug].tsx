@@ -22,9 +22,13 @@ export default function SinglePost() {
   return (
     <>
       <PageTransition>
-        {isPending && <>Loading...</>}
+        {isPending && (
+          <div className="flex justify-center items-center grow text-gray-200">
+            <p>Loading...</p>
+          </div>
+        )}
         {isError && <>Error: {error?.message}</>}
-        {!data && <>No posts found</>}
+        {!isPending && !data && <>No posts found</>}
         {data && <PostContent post={data} />}
       </PageTransition>
       <Head>

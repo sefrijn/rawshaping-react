@@ -7,6 +7,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
+// TODO:
+// - [ ] Enable footer link
+// - [ ] Enable PDF documents
+// - [ ] Enable Vimeo embed
+
 export default function Home() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["latestPost"],

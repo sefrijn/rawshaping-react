@@ -6,17 +6,23 @@ import { formatDate } from "../lib/formatDate";
 import Lightbox from "yet-another-react-lightbox-lite";
 import { useState, useEffect, useRef } from "react";
 import "yet-another-react-lightbox-lite/styles.css";
+import Image from "next/image";
 
 export default function PostContent({ post }: { post: PostProps }) {
   const [index, setIndex] = useState<number>();
   const [photos, setPhotos] = useState<{ src: string }[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [formattedContent, setFormattedContent] = useState<string>("");
 
   useEffect(() => {
     if (post?.content?.rendered) {
+      // Process PDF tags in content
+      const processedContent = processPdfTags(post.content.rendered);
+      setFormattedContent(processedContent);
+
       // Create a temporary DOM element to parse the HTML
       const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = post.content.rendered;
+      tempDiv.innerHTML = processedContent;
 
       // Extract all image URLs from anchor tags containing images
       const imageLinks = tempDiv.querySelectorAll("a > img");
@@ -28,6 +34,14 @@ export default function PostContent({ post }: { post: PostProps }) {
       setPhotos(imageUrls);
     }
   }, [post?.content?.rendered]);
+
+  // Function to replace [pdf filename.pdf] tags with PDF download links
+  const processPdfTags = (content: string): string => {
+    // Regex to match [pdf filename.pdf] pattern
+    return content.replace(/\[pdf (.*?)\]/gi, (match, filename) => {
+      return `<div class="wrap_pdf"><a href="https://www.rawshaping.com/documents/${filename}"><img src="/img/adobe_pdf_icon.png" alt="PDF" height="15" /> ${filename}</a></div>`;
+    });
+  };
 
   // Handle click on content to intercept image clicks
   const handleContentClick = (e: React.MouseEvent) => {
@@ -56,6 +70,22 @@ export default function PostContent({ post }: { post: PostProps }) {
           background-repeat: repeat-y;
           background-position: top left;
         }
+        .wrap_pdf {
+          margin: 1rem 0;
+        }
+        .wrap_pdf a {
+          display: inline-flex;
+          align-items: center;
+          color: #333;
+          text-decoration: none;
+          font-weight: 500;
+        }
+        .wrap_pdf a:hover {
+          text-decoration: underline;
+        }
+        .wrap_pdf img {
+          margin-right: 5px;
+        }
       `}</style>
       <Link
         href="/posts"
@@ -75,11 +105,11 @@ export default function PostContent({ post }: { post: PostProps }) {
             <h1 className="text-lg font-bold tracking-tight my-1">
               {post.title}
             </h1>
-            {post.content && (
+            {formattedContent && (
               <div
                 ref={contentRef}
                 className="mt-4 text-gray-600"
-                dangerouslySetInnerHTML={{ __html: post?.content?.rendered }}
+                dangerouslySetInnerHTML={{ __html: formattedContent }}
                 onClick={handleContentClick}
               />
             )}
