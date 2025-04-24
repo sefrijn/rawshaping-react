@@ -127,7 +127,7 @@ const HorizontalMasonry = ({
     };
   }, []);
 
-  // Update resizeObserver callback when calculateLayout changes
+  // Create and update resizeObserver callback when calculateLayout changes
   useEffect(() => {
     // Disconnect old observer and create new one with updated callback
     if (resizeObserverRef.current) {
@@ -142,22 +142,6 @@ const HorizontalMasonry = ({
       }
     }
   }, [calculateLayout]);
-
-  // Check scroll position on scroll
-  const handleScroll = (
-    scrollValues: ScrollState,
-    prevScrollState: ScrollState
-  ) => {
-    if (!canLoadMore || isLoading.current) return;
-
-    const { scrollLeft, scrollWidth, clientWidth } = scrollValues;
-
-    // If we're within 300px of the end, load more
-    const scrollThreshold = 300;
-    if (scrollWidth - (scrollLeft + clientWidth) < scrollThreshold) {
-      loadMorePosts();
-    }
-  };
 
   const loadMorePosts = async () => {
     if (isLoading.current || !canLoadMore || recalculatingLayout.current)
@@ -190,25 +174,34 @@ const HorizontalMasonry = ({
     }
   };
 
-  // // Recalculate layout on mount, item change, or resize
-  // useEffect(() => {
-  //   calculateLayout();
-  // }, [allPosts, windowWidth]); // Update dependency to allPosts
+  // Check scroll position on scroll
+  const handleScroll = useCallback(
+    (
+      scrollValuesOrEvent: ScrollState | UIEvent<HTMLDivElement>,
+      prevScrollState?: ScrollState
+    ) => {
+      // If we have a ScrollState (not an event), process it
+      if (
+        scrollValuesOrEvent &&
+        "scrollLeft" in scrollValuesOrEvent &&
+        prevScrollState
+      ) {
+        const scrollValues = scrollValuesOrEvent as ScrollState;
 
-  // // Handle resize
-  // useEffect(() => {
-  //   const resizeObserver = new ResizeObserver(() => {
-  //     calculateLayout();
-  //   });
-  //   if (containerRef.current) {
-  //     resizeObserver.observe(containerRef.current);
-  //   }
-  //   return () => {
-  //     if (containerRef.current) {
-  //       resizeObserver.unobserve(containerRef.current);
-  //     }
-  //   };
-  // }, []);
+        if (!canLoadMore || isLoading.current) return;
+
+        const { scrollLeft, scrollWidth, clientWidth } = scrollValues;
+
+        // If we're within 300px of the end, load more
+        const scrollThreshold = 300;
+        if (scrollWidth - (scrollLeft + clientWidth) < scrollThreshold) {
+          loadMorePosts();
+        }
+      }
+      // If it's a UIEvent, we don't need to do anything special
+    },
+    [canLoadMore, loadMorePosts]
+  );
 
   // Handle wheel events to convert vertical scroll to horizontal
   const handleWheel = (event: WheelEvent) => {
