@@ -18,7 +18,6 @@ export const PostThumbnail = ({
   const router = useRouter();
   // router pathname
   const pathname = router.pathname;
-  console.log(pathname);
   const slug = router.query.slug as string;
   const isActive =
     slug === post.slug ||

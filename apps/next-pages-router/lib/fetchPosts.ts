@@ -21,11 +21,8 @@ export async function fetchPosts(
   try {
     // If tag is defined, get the tag id from rest api tag endpoint
     if (queryParams.tags) {
-      console.log('Fetching tag:', queryParams.tags);
       const tagResponse = await fetch(`${baseUrl}/tags?slug=${queryParams.tags}`);
-      console.log('Tag url:', `${baseUrl}/tags?slug=${queryParams.tags}`);
       const tagData = await tagResponse.json();
-      console.log('Tag data:', tagData[0].id);
       const tagId = tagData[0].id;
       queryParams.tags = tagId;
     }else{
@@ -47,7 +44,7 @@ export async function fetchPosts(
     const data = await response.json();
     const posts = data.map(simplifyPostData);
 
-    console.log('Total pages:', totalPages, 'Current page:', queryParams.page, 'URL:', url);
+    // console.log('Total pages:', totalPages, 'Current page:', queryParams.page, 'URL:', url);
 
     return { posts, pages: totalPages, currentPage: queryParams.page };
   } catch (error) {

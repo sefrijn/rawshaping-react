@@ -147,8 +147,6 @@ const HorizontalMasonry = ({
     if (isLoading.current || !canLoadMore || recalculatingLayout.current)
       return;
 
-    console.log("Loading more posts...", canLoadMore, isLoading.current, page);
-
     isLoading.current = true;
     try {
       const nextPage = page + 1;
