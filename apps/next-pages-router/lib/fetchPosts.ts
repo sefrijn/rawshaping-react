@@ -37,6 +37,7 @@ export async function fetchPosts(
     const allQueryParams = { ...queryParams, ...fieldParams};
     const qs = createQueryParamString(allQueryParams);
     let url = `${baseUrl}/${postType}?${qs}`;
+    
     const response = await fetch(url);
 
     if (!response.ok)

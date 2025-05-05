@@ -6,6 +6,12 @@ export function simplifyPostData(post: any) {
     result.featuredImage = {
       title: post._embedded?.['wp:featuredmedia'][0].title.rendered,
       sizes: post._embedded?.['wp:featuredmedia'][0].media_details.sizes,
+      source: {
+        source_url: post._embedded?.['wp:featuredmedia'][0].source_url,
+        width: post._embedded?.['wp:featuredmedia'][0].media_details.width,
+        height: post._embedded?.['wp:featuredmedia'][0].media_details.height,
+        mime_type: post._embedded?.['wp:featuredmedia'][0].mime_type,
+      },
     };
   }
 

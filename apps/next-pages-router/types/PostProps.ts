@@ -16,6 +16,7 @@ interface ImageSizes {
 interface FeaturedImage {
   title: string;
   sizes: ImageSizes;
+  source: ImageSize;
 }
 interface TaxonomyTerm {
   name: string;

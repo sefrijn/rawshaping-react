@@ -5,6 +5,7 @@
  * @since Rawshaping 3.0.0
  */
 
+
 /**
  * Register a custom REST API endpoint to fetch posts by slug.
  */

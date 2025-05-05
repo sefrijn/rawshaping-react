@@ -17,7 +17,7 @@ export function Navigation() {
   return (
     <>
       <button
-        className="self-start mt-4.5 text-grey z-40 hover:bg-grey/10 rounded-full hover:text-primary"
+        className="self-start mt-4.5 text-grey z-40 hover:text-primary transition-none"
         onClick={() => setOpen(!isOpen)}
       >
         <Hamburger size={18} toggled={isOpen} toggle={setOpen} />

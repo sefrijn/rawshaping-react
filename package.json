@@ -9,6 +9,6 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "dev": "pnpm --filter ./apps/wordpress docker:up && pnpm --filter ./apps/next dev"
+    "dev": "pnpm --filter ./apps/wordpress docker:up && pnpm --filter ./apps/next-pages-router dev"
   }
 } 

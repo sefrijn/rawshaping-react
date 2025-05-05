@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchTags } from "@/lib/fetchTags";
 import Link from "next/link";
+import { useMediaQuery } from "usehooks-ts";
 
 const tagFontSize = (count: number) => {
   // Make a better algorithm. Above a certain threshold, the amount of font size to increase should be smaller.
@@ -52,20 +53,25 @@ export function Tags() {
     queryFn: fetchTags,
   });
 
+  const isTablet = useMediaQuery("(max-width: 1024px)");
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
-    <div className="hidden lg:flex flex-wrap content-center justify-center gap-x-2">
+    <div className="flex flex-wrap content-center justify-center gap-x-1 xl:gap-x-2 py-2 px-5">
       {/* Filter tags with count larger than 1 */}
       {/* Randomize the order of the tags */}
       {/* Show different fontsize based on count */}
       {data
-        ?.filter((tag: Tag) => tag.count >= 1)
+        ?.filter((tag: Tag) => tag.count >= (isTablet ? 10 : 4))
         .sort(() => Math.random() - 0.5)
         .map((tag: Tag) => (
           <Link
-            className={"!flex items-center justify-center !leading-6 group"}
+            className={
+              "!flex items-center justify-center !leading-4 sm:!leading-6 group"
+            }
             href={`/tag/${tag.slug}`}
             style={{
-              fontSize: tagFontSize(tag.count),
+              fontSize: isMobile ? "11px" : tagFontSize(tag.count),
             }}
             key={tag.id}
           >

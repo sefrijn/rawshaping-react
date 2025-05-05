@@ -7,6 +7,7 @@ import Lightbox from "yet-another-react-lightbox-lite";
 import { useState, useEffect, useRef } from "react";
 import "yet-another-react-lightbox-lite/styles.css";
 import Image from "next/image";
+import { IoChevronBackSharp } from "react-icons/io5";
 
 export default function PostContent({ post }: { post: PostProps }) {
   const [index, setIndex] = useState<number>();
@@ -17,7 +18,8 @@ export default function PostContent({ post }: { post: PostProps }) {
   useEffect(() => {
     if (post?.content?.rendered) {
       // Process PDF tags in content
-      const processedContent = processPdfTags(post.content.rendered);
+      let processedContent = processPdfTags(post.content.rendered);
+      processedContent = processVimeoTags(processedContent);
       setFormattedContent(processedContent);
 
       // Create a temporary DOM element to parse the HTML
@@ -40,6 +42,14 @@ export default function PostContent({ post }: { post: PostProps }) {
     // Regex to match [pdf filename.pdf] pattern
     return content.replace(/\[pdf (.*?)\]/gi, (match, filename) => {
       return `<div class="wrap_pdf"><a href="https://www.rawshaping.com/documents/${filename}"><img src="/img/adobe_pdf_icon.png" alt="PDF" height="15" /> ${filename}</a></div>`;
+    });
+  };
+
+  // Function to replace [vimeo VIDEO_ID] tags with Vimeo embeds
+  const processVimeoTags = (content: string): string => {
+    // Regex to match [vimeo VIDEO_ID] pattern
+    return content.replace(/\[vimeo (\d+)\]/gi, (match, videoId) => {
+      return `<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/${videoId}?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Vimeo Video"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>`;
     });
   };
 
@@ -89,14 +99,15 @@ export default function PostContent({ post }: { post: PostProps }) {
       `}</style>
       <Link
         href="/posts"
-        className="text-grey absolute top-[22px] right-4 p-2 z-20 group hover:bg-grey/10 rounded-full"
+        className="text-grey absolute z-20 group hover:text-primary hover:bg-white flex flex-row items-center gap-1"
       >
-        <IoMdClose size={26} className="text-grey group-hover:text-primary" />
+        <IoChevronBackSharp size={16} />
+        <span className="text-xs">back to overview</span>
       </Link>
 
       <div className="scrollbar-wrapper">
         <Scrollbar noDefaultStyles>
-          <div className="md:pl-5 md:pr-5 pl-2 pr-5 py-2">
+          <div className="md:pl-5 md:pr-5 pl-2 pr-0 pt-6 pb-6">
             <div className="flex justify-between">
               <p className="text-grey text-xs uppercase font-bold tracking-tighter">
                 {formatDate(post.date)}
