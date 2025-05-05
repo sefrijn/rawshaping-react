@@ -2,6 +2,8 @@ on:
   push:
     paths:
       - 'apps/wordpress/**'
+  workflow_dispatch:
+
 name: 🚀 Deploy WordPress Theme on push
 jobs:
   web-deploy:
