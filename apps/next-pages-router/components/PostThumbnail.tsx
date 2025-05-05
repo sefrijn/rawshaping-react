@@ -16,8 +16,13 @@ export const PostThumbnail = ({
   isDragging: boolean;
 }) => {
   const router = useRouter();
+  // router pathname
+  const pathname = router.pathname;
+  console.log(pathname);
   const slug = router.query.slug as string;
-  const isActive = slug === post.slug || (index === 0 && slug === undefined);
+  const isActive =
+    slug === post.slug ||
+    (index === 0 && slug === undefined && pathname === "/");
 
   const thumbnailProps = {
     src:
