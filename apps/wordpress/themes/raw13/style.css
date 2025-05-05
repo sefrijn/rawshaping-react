@@ -11,11 +11,48 @@ License URI:
 
 */
 @font-face {
-  font-family: MonoRSFF;
-  src: url("font/mono.ttf"); }
-
-body {
-  font-family: "MonoRSFF";
-  font-weight: 100;
-  color: #006eab
+  font-family: "Mono";
+  src: url("./font/mono.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
+
+
+html, body{
+  padding: 0;
+  margin: 0;
+  width:100%;
+  height:calc(100% - 32px);
+  min-height: calc(100% - 32px);
+}
+
+body{
+  font-family: "Mono";
+  display: flex;
+  gap:12px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+a{
+  color: #006eab;
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
+}
+.react-button{
+  display: inline-block; 
+  padding: 10px 20px; 
+  background-color: #0066cc; 
+  color: white; 
+  text-decoration: none; 
+  border-radius: 4px; 
+  font-weight: bold;
+}
+.react-button:hover{
+  background-color: #004492;
+  text-decoration: none;
+}
+

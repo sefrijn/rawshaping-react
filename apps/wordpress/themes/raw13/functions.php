@@ -9,7 +9,7 @@
  * Register a custom REST API endpoint to fetch posts by slug.
  */
 add_action('rest_api_init', function () {
-    register_rest_route('wp/v2', '/posts/(?P<slug>[a-zA-Z0-9-]+)', array(
+    register_rest_route('wp/v2', '/posts/slug/(?P<slug>[a-zA-Z0-9-]+)', array(
         'methods' => 'GET',
         'callback' => 'get_post_by_slug',
         'permission_callback' => '__return_true', // Public access; adjust if authentication is needed

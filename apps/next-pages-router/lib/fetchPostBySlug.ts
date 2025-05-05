@@ -18,8 +18,8 @@ export async function fetchPostBySlug(slug: string | string[] | undefined, field
   const fieldParams = convertToWordpressQueryParams(fields);
   const qs = createQueryParamString(fieldParams);
 
-  const response = await fetch(`${baseUrl}/posts/${slug}?${qs}`);
-  
+  const response = await fetch(`${baseUrl}/posts/slug/${slug}?${qs}`);
+
   const data = await response.json();
   return simplifyPostData(data);
   // return data.map(simplifyPostData)[0];
