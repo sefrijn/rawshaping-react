@@ -1,6 +1,6 @@
 # Local WordPress Development Environment
 
-This directory contains the Docker Compose configuration for local WordPress development.
+This directory contains the Docker Compose configuration for local WordPress development (2025-12-03).
 
 ## Setup
 
